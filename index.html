@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>backbone OUTPUT</title>
+  <link rel="stylesheet" href="dist/app.css">
+  <script src="https://use.fontawesome.com/e3ae05b8e6.js"></script>
+</head>
+<body>
+  <!--全ての-->
+  <div class="main" id="app">
+    
+    <!--タスクを追加するフォーム-->
+    <form class="form js-form"></form>
+
+    <!--検索ボックス-->
+    <div class="searchBox">
+      <i class="fa fa-search searchBox__icon" aria-hidden="true"></i>
+      <input type="text" class="searchBox__input js-search" placeholder="絞り込みたいキーワードを入力">
+    </div>
+
+    <!--タスクの一覧-->
+    <ul class="list js-todo_list"></ul>
+
+
+      <!--追加するタスクのテンプレート-->
+      <script type="text/template" id="template-list-item">
+        
+        <!--実際に追加するタスクの中身-->
+        <li class="list__item js-todo_list-item <% if(isDone){ %> list__item--done <% } %>">
+          <i class="fa <% if(isDone){ %> fa-check-square <% }else{ %> fa-square-o <% } %>
+            icon-check js-toggle-done" aria-hidden="true">
+          </i>
+
+          <!--編集モードじゃない場合-->
+          <% if(!editMode){ %>
+            <!--編集モードで入れた文字を表示する-->
+            <span class="js-todo_list-text"><%= text %></span>
+          <% }else{ %>
+            <!--編集モードの場合は入力できるようにする-->
+            <input type="text" class="editText js-todo_list-editForm" value="<%= text %>">
+          <% } %>
+            <i class="fa fa-trash icon-trash js-click-trash" aria-hidden="true"></i>
+        </li>
+      </script>
+
+      <!--フォーム（新規のタスク追加）のテンプレート-->
+      <script type="text/template" id="template-form">
+        <div class="inputArea">
+          <input type="text" class="inputText js-get-val" placeholder="ここにTODO内容を書く">
+          <% if(hasError){ %>
+            <span class="error js-error-text"><%= errorMsg %></span>
+          <% } %>
+        </div>
+        <button class="btn js-add-todo">TODOを追加</button>
+      </script>
+
+  </div>
+<script src="dist/bundle.js"></script>
+</body>
+</html>
